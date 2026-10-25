@@ -2,18 +2,35 @@
 # The agent uses this first, then widens with keyword search.
 topics:
   aml_cdd:
-    description: Customer due diligence, beneficial ownership, KYC
-    paths: ["src/kyc/", "config/kyc_rules.yaml", "docs/compliance/cdd.md"]
-    keywords: ["beneficial_owner", "cdd", "kyc"]
+    description: KYC / customer due diligence and AML monitoring logic
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/analyzer.py",
+      "reg-patching-agent/reg-patching-agent/agent/scanner.py",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["aml", "cdd", "kyc", "customer_due_diligence", "beneficial_owner"]
   sar_ctr_reporting:
-    description: SAR/CTR thresholds and filing deadlines
-    paths: ["src/reporting/", "config/reporting_thresholds.yaml"]
-    keywords: ["ctr_threshold", "sar_deadline", "currency_transaction"]
+    description: Reporting thresholds, filing cadence, and transaction screening inputs
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/sources.py",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["sar", "ctr", "reporting", "federal_register", "currency_transaction", "threshold"]
   capital_adequacy:
-    description: Basel capital ratios, RWA, buffers
-    paths: ["src/risk/capital/", "config/capital_ratios.yaml"]
-    keywords: ["cet1", "rwa", "leverage_ratio", "capital_buffer"]
+    description: Basel / capital adequacy and stress-testing policy references
+    paths: [
+      "reg-patching-agent/reg-patching-agent/README.md",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/agent/analyzer.py"
+    ]
+    keywords: ["basel", "capital", "rwa", "leverage_ratio", "capital_buffer", "bcbs"]
   recordkeeping:
-    description: Retention periods and audit trails
-    paths: ["src/records/", "config/retention.yaml"]
-    keywords: ["retention_days", "audit_trail"]
+    description: Retention periods, audit trails, and compliance evidence logging
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/github_pr.py",
+      "reg-patching-agent/reg-patching-agent/agent/scanner.py",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["audit_trail", "retention", "log", "draft_pr", "reviewers_team", "evidence"]
