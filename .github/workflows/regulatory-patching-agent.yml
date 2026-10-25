@@ -1,1 +1,64 @@
+name: Regulatory Patching Agent
 
+on:
+  schedule:
+    - cron: "0 5 * * 1-5"        # weekdays 05:00 UTC
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Analyze only; do not open PRs"
+        type: boolean
+        default: true
+      doc_url:
+        description: "Optional: process one specific document URL"
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: reg-patching-agent
+  cancel-in-progress: false
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+
+      - name: Install dependencies
+        run: |
+          pip install anthropic requests pyyaml
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Configure git
+        run: |
+          git config user.name  "reg-patching-agent[bot]"
+          git config user.email "reg-patching-agent@users.noreply.github.com"
+
+      - name: Run agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.AGENT_GH_TOKEN || secrets.GITHUB_TOKEN }}
+          BASE_BRANCH: ${{ github.event.repository.default_branch }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+          DOC_URL: ${{ inputs.doc_url }}
+        run: |
+          ARGS=""
+          if [ "$DRY_RUN" = "true" ]; then ARGS="--dry-run"; fi
+          if [ -n "$DOC_URL" ]; then ARGS="$ARGS --doc-url $DOC_URL"; fi
+          python -m agent.main $ARGS
+
+      - name: Upload audit log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: agent-audit-log
+          path: audit/
+          if-no-files-found: ignore
