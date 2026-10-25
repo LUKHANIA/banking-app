@@ -1,0 +1,19 @@
+# Maps regulatory topics to the code/docs that implement them.
+# The agent uses this first, then widens with keyword search.
+topics:
+  aml_cdd:
+    description: Customer due diligence, beneficial ownership, KYC
+    paths: ["src/kyc/", "config/kyc_rules.yaml", "docs/compliance/cdd.md"]
+    keywords: ["beneficial_owner", "cdd", "kyc"]
+  sar_ctr_reporting:
+    description: SAR/CTR thresholds and filing deadlines
+    paths: ["src/reporting/", "config/reporting_thresholds.yaml"]
+    keywords: ["ctr_threshold", "sar_deadline", "currency_transaction"]
+  capital_adequacy:
+    description: Basel capital ratios, RWA, buffers
+    paths: ["src/risk/capital/", "config/capital_ratios.yaml"]
+    keywords: ["cet1", "rwa", "leverage_ratio", "capital_buffer"]
+  recordkeeping:
+    description: Retention periods and audit trails
+    paths: ["src/records/", "config/retention.yaml"]
+    keywords: ["retention_days", "audit_trail"]

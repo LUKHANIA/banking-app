@@ -1,0 +1,23 @@
+# Regulatory sources the agent watches. Verify feed URLs for your environment.
+sources:
+  - name: SEC
+    type: federal_register
+    agency: securities-and-exchange-commission
+  - name: FinCEN
+    type: federal_register
+    agency: financial-crimes-enforcement-network
+  - name: Basel (BCBS)
+    type: rss
+    url: https://www.bis.org/doclist/bcbspubls.rss
+
+lookback_days: 7
+model: claude-sonnet-5-5
+
+# Guardrails
+max_files_per_pr: 15
+max_file_bytes: 60000
+allowed_paths: ["src/", "config/", "docs/compliance/", "rules/"]
+denied_paths: [".github/", "secrets/", "infra/prod/"]
+test_command: "pytest -q"
+reviewers_team: "compliance-engineering"   # GitHub team slug (org repos)
+labels: ["regulatory-patch", "needs-compliance-review"]
