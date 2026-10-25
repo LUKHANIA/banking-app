@@ -16,8 +16,8 @@ model: claude-sonnet-5-5
 # Guardrails
 max_files_per_pr: 15
 max_file_bytes: 60000
-allowed_paths: ["src/", "config/", "docs/compliance/", "rules/"]
+allowed_paths: ["reg-patching-agent/", "src/", "config/", "docs/", "rules/"]
 denied_paths: [".github/", "secrets/", "infra/prod/"]
-test_command: "pytest -q"
+test_command: "pytest -q reg-patching-agent"
 reviewers_team: "compliance-engineering"   # GitHub team slug (org repos)
 labels: ["regulatory-patch", "needs-compliance-review"]
