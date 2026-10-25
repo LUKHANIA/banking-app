@@ -1,0 +1,36 @@
+# Maps regulatory topics to the code/docs that implement them.
+# The agent uses this first, then widens with keyword search.
+topics:
+  aml_cdd:
+    description: KYC / customer due diligence and AML monitoring logic
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/analyzer.py",
+      "reg-patching-agent/reg-patching-agent/agent/scanner.py",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["aml", "cdd", "kyc", "customer_due_diligence", "beneficial_owner"]
+  sar_ctr_reporting:
+    description: Reporting thresholds, filing cadence, and transaction screening inputs
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/sources.py",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["sar", "ctr", "reporting", "federal_register", "currency_transaction", "threshold"]
+  capital_adequacy:
+    description: Basel / capital adequacy and stress-testing policy references
+    paths: [
+      "reg-patching-agent/reg-patching-agent/README.md",
+      "reg-patching-agent/reg-patching-agent/agent/config.yaml",
+      "reg-patching-agent/reg-patching-agent/agent/analyzer.py"
+    ]
+    keywords: ["basel", "capital", "rwa", "leverage_ratio", "capital_buffer", "bcbs"]
+  recordkeeping:
+    description: Retention periods, audit trails, and compliance evidence logging
+    paths: [
+      "reg-patching-agent/reg-patching-agent/agent/github_pr.py",
+      "reg-patching-agent/reg-patching-agent/agent/scanner.py",
+      "reg-patching-agent/reg-patching-agent/README.md"
+    ]
+    keywords: ["audit_trail", "retention", "log", "draft_pr", "reviewers_team", "evidence"]
